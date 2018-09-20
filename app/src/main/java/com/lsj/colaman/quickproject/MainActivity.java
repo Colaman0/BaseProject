@@ -1,13 +1,22 @@
 package com.lsj.colaman.quickproject;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.lsj.colaman.quickproject.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int initLayoutRes() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected int setStatusBarColor() {
+        return R.color.colorAccent;
     }
 }

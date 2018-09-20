@@ -24,3 +24,6 @@
 # 屏幕适配
  -keep class me.jessyan.autosize.** { *; }
  -keep interface me.jessyan.autosize.** { *; }
+
+# 状态栏
+ -keep class com.gyf.barlibrary.* {*;}
