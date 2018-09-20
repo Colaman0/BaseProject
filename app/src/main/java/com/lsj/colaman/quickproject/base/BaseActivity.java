@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.gyf.barlibrary.ImmersionBar;
 import com.lsj.colaman.quickproject.R;
 
+import butterknife.ButterKnife;
+
 /**
  * Create by kyle on 2018/9/19
  * Function : baseActivity
@@ -21,7 +23,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(initLayoutRes());
+        ButterKnife.bind(this,this);
         initStatusBar();
+        initView();
     }
 
     @Override
@@ -31,6 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract int initLayoutRes();
+
+    protected abstract void initView();
 
     /**
      * 设置状态栏颜色
