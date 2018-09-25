@@ -1,11 +1,10 @@
-package com.lsj.colaman.quickproject;
+package com.lsj.colaman.quickproject.test;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.adapter.SimpleAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
 import com.lsj.colaman.quickproject.layoutmanager.LinearLayoutManagerWrapper;

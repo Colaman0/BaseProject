@@ -1,4 +1,4 @@
-package com.lsj.colaman.quickproject;
+package com.lsj.colaman.quickproject.util;
 
 /**
  * Create by kyle on 2018/9/19

@@ -1,6 +1,5 @@
-package com.lsj.colaman.quickproject;
+package com.lsj.colaman.quickproject.test;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.lsj.colaman.quickproject.base.Comparator;
 
 /**

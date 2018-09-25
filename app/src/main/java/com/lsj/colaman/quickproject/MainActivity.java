@@ -1,29 +1,26 @@
 package com.lsj.colaman.quickproject;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.lsj.colaman.quickproject.adapter.PositionAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
 import com.lsj.colaman.quickproject.base.CommonDiffCallBack;
-import com.lsj.colaman.quickproject.layoutmanager.LinearLayoutManagerWrapper;
+import com.lsj.colaman.quickproject.test.Data;
+import com.lsj.colaman.quickproject.test.DataRight;
+import com.lsj.colaman.quickproject.test.MultiData;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;

@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lsj.colaman.quickproject.Data;
-import com.lsj.colaman.quickproject.DataRight;
-import com.lsj.colaman.quickproject.MultiData;
+import com.lsj.colaman.quickproject.test.Data;
+import com.lsj.colaman.quickproject.test.DataRight;
+import com.lsj.colaman.quickproject.test.MultiData;
 import com.lsj.colaman.quickproject.R;
 
 import java.util.ArrayList;
