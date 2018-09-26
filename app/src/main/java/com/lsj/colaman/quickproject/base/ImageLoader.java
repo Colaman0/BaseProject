@@ -97,14 +97,14 @@ public class ImageLoader {
      */
     public Observable<Bitmap> downLoadBitmap(final Context context, final String source) {
         return Observable.just(source)
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .map(new Function<String, FutureTarget<Bitmap>>() {
                     @Override
                     public FutureTarget<Bitmap> apply(String s) throws Exception {
                         return Glide.with(context).asBitmap().load(source).apply(getDefaultOptions()).submit();
                     }
                 })
-                .observeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
                 .map(new Function<FutureTarget<Bitmap>, Bitmap>() {
                     @Override
                     public Bitmap apply(FutureTarget<Bitmap> bitmapFutureTarget) throws Exception {

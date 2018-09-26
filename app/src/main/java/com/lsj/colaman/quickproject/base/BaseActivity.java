@@ -1,5 +1,8 @@
 package com.lsj.colaman.quickproject.base;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
@@ -24,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(initLayoutRes());
-        ButterKnife.bind(this,this);
+        ButterKnife.bind(this, this);
         initStatusBar();
         initView();
     }
@@ -69,5 +72,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     @ColorRes
     protected int setStatusBarColor() {
         return mDefaultStatusBarColorRes;
+    }
+
+    public Context getContext() {
+        return this;
+    }
+
+    public Activity getActivity() {
+        return this;
+    }
+
+    public Intent getDefaultIntent(Activity activity) {
+        return new Intent(activity, getClass());
+    }
+
+    public void goToAcitivty(Activity activity) {
+        startActivity(getDefaultIntent(activity));
     }
 }
