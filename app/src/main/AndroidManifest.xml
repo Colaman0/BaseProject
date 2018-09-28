@@ -30,17 +30,20 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".test.SimpleItemActivity"></activity>
-        <activity android:name=".test.ImageActivity">
+        <activity android:name=".MainActivity">
 
         </activity>
+        <activity android:name=".test.SimpleItemActivity" />
+        <activity android:name=".test.ImageActivity"></activity>
         <activity android:name=".test.LayoutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Main2Activity">
+
         </activity>
     </application>
 

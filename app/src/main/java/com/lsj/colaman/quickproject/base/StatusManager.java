@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * Create by kyle on 2018/9/27
- * Function :
+ * Function : 对于布局的状态d
  */
 public class StatusManager {
     private View mDataView;

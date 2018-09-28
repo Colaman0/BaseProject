@@ -25,14 +25,25 @@ public class LayoutActivity extends BaseActivity {
     @SuppressLint("CheckResult")
     @Override
     protected void initView() {
-        Observable.interval(10, 2, TimeUnit.SECONDS)
-                .take(1)
+        Observable.interval(2, 2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-
-                        switchLayout(Constants.STATUS_EMPTY);
+                        String type = "";
+                        switch (num %= 3) {
+                            case 1:
+                                type = Constants.STATUS_EMPTY;
+                                break;
+                            case 2:
+                                type = Constants.STATUS_ERROR;
+                                break;
+                            case 0:
+                                type = Constants.STATUS_NORMAL;
+                                break;
+                        }
+                        switchLayout(type);
+                        num++;
                     }
                 });
     }
