@@ -1,6 +1,9 @@
 package com.lsj.colaman.quickproject.base;
 
 import android.app.Activity;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +12,10 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.colaman.statuslayout.StatusLayout;
 import com.gyf.barlibrary.ImmersionBar;
-import com.lsj.colaman.quickproject.Constants;
 import com.lsj.colaman.quickproject.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -25,10 +24,8 @@ import butterknife.ButterKnife;
  * Function : baseActivity
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    @BindView(R.id.content_layout)
-    StatusLayout contentLayout;
-    @BindView(R.id.include_status)
-    LinearLayout rootLayout;
+    private LifecycleRegistry mLifecycleRegistry;
+
     // 状态栏颜色
     private int mDefaultStatusBarColorRes = R.color.colorPrimary;
     private ImmersionBar mImmersionBar;
@@ -38,23 +35,41 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.include_status);
+        setContentView(initLayoutRes());
+        initLifeCycle();
         ButterKnife.bind(this, this);
         initStatusLayout();
         initStatusBar();
         initView();
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     @Override
     protected void onResume() {
         super.onResume();
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mStatusManager.destory();
         destoryStatusBar();
+    }
+
+    private void initLifeCycle() {
+        mLifecycleRegistry = new LifecycleRegistry(this);
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @LayoutRes
@@ -79,10 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 加载多布局管理
      */
     private void initStatusLayout() {
-        contentLayout
-                .defaultInit(this, initLayoutRes())
-                .add(Constants.STATUS_EMPTY, R.layout.include_loading, false)
-                .add(Constants.STATUS_ERROR, R.layout.include_loading, true);
+
     }
 
     /**
@@ -112,15 +124,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         return this;
     }
 
-    public Intent getDefaultIntent(Activity activity) {
-        return new Intent(activity, getClass());
+    public Intent getDefaultIntent(Class activity) {
+        return new Intent(this, activity);
     }
 
-    public void goToAcitivty(Activity activity) {
+    public void goToAcitivty(Class activity) {
         startActivity(getDefaultIntent(activity));
     }
 
     public void switchLayout(String layoutType) {
-        contentLayout.switchLayout(layoutType);
+//        contentLayout.switchLayout(layoutType);
     }
 }

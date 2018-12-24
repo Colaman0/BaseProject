@@ -25,7 +25,7 @@ dependencies {
     // 屏幕适配
     implementation 'me.jessyan:autosize:0.9.5'
     // 状态栏
-    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta09'
     // recyclerview adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
     // butterknife
@@ -37,13 +37,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
+    implementation 'com.github.Colaman0:StatusLayout:1.0.2'
     // matisse
-    implementation 'com.zhihu.android:matisse:0.5.1'
+    implementation 'com.zhihu.android:matisse:0.5.2-beta3'
     // andpermission
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
     // util
-    implementation 'com.blankj:utilcode:1.20.3'
-    implementation 'com.github.Colaman0:StatusLayout:1.0.1'
+    implementation 'com.blankj:utilcode:1.22.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
