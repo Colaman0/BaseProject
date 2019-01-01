@@ -1,6 +1,7 @@
 package com.lsj.colaman.quickproject;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
@@ -28,5 +29,33 @@ public class TestViewModel extends RecyclerViewModel {
     @Override
     public void bindView(BaseViewHolder holder) {
         ((TextView) holder.getView(R.id.text)).setText(String.valueOf(mI));
+    }
+
+    @Override
+    protected void onLifeDestory() {
+        super.onLifeDestory();
+    }
+
+    @Override
+    protected void onLifeStart() {
+        super.onLifeStart();
+    }
+
+    @Override
+    protected void onLifeResume() {
+        super.onLifeResume();
+    }
+
+
+    @Override
+    public void onViewAttached() {
+        super.onViewAttached();
+        Log.d("cola", "onViewAttached = " + mI);
+    }
+
+    @Override
+    public void onViewDetached() {
+        super.onViewDetached();
+        Log.d("cola", "onViewDetached = " + mI);
     }
 }

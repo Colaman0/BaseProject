@@ -48,13 +48,13 @@ public class PositionAdapter extends BaseMultiItemQuickAdapter<MultiData, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, MultiData item) {
-        if (helper.getItemViewType() == 2) {
-            helper.setText(R.id.text, "position = " + helper.getLayoutPosition() + "  内容=" + ((DataRight) item).className)
-                    .addOnClickListener(R.id.text);
-        } else {
-            helper.setText(R.id.text, "position = " + helper.getLayoutPosition() + "  内容=" + ((Data) item).id)
-                    .addOnClickListener(R.id.text);
-        }
+//        if (helper.getItemViewType() == 2) {
+//            helper.setText(R.id.text, "position = " + helper.getLayoutPosition() + "  内容=" + ((DataRight) item).className)
+//                    .addOnClickListener(R.id.text);
+//        } else {
+//            helper.setText(R.id.text, "position = " + helper.getLayoutPosition() + "  内容=" + ((Data) item).id)
+//                    .addOnClickListener(R.id.text);
+//        }
     }
 
 

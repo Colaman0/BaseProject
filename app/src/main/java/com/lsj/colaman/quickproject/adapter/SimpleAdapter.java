@@ -18,38 +18,30 @@ import java.util.List;
  * Function :
  */
 public class SimpleAdapter extends BaseQuickAdapter<Data, BaseViewHolder> {
-    private List<Data> mOldDatas = new ArrayList<>();
+    private List<Data> mDatas;
 
     public SimpleAdapter(int layoutResId, @Nullable List<Data> data) {
-        super(layoutResId, data);
-        mOldDatas.addAll(data);
+        super(layoutResId);
+        mDatas = data;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final Data item) {
+    protected void convert(BaseViewHolder helper, Data item) {
+        final Data data = item;
         helper.setText(R.id.text, item.id);
         helper.getView(R.id.text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOldDatas.remove(item);
-                updateUi();
+                getData().remove(data);
+                notifyDataSetChanged();
             }
         });
     }
 
-    public void updateUi(List<Data> datas) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new CommonDiffCallBack<>(mOldDatas, datas));
+    public void updateUi() {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new CommonDiffCallBack<>(getData(), mDatas), false);
         diffResult.dispatchUpdatesTo(this);
         getData().clear();
-        getData().addAll(datas);
-        mOldDatas.clear();
-        mOldDatas.addAll(datas);
-    }
-
-    private void updateUi() {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new CommonDiffCallBack<>(getData(), mOldDatas));
-        diffResult.dispatchUpdatesTo(this);
-        getData().clear();
-        getData().addAll(mOldDatas);
+        getData().addAll(mDatas);
     }
 }

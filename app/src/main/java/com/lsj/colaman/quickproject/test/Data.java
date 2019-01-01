@@ -6,12 +6,13 @@ import com.lsj.colaman.quickproject.base.Comparator;
  * Create by kyle on 2018/9/21
  * Function :
  */
-public class Data extends MultiData implements Comparator {
+public class Data implements Comparator {
     public String id;
     public String name;
 
     public Data(String id) {
         this.id = id;
+        this.name = "222";
     }
 
     @Override
@@ -25,10 +26,5 @@ public class Data extends MultiData implements Comparator {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    @Override
-    public int getItemType() {
-        return 1;
     }
 }

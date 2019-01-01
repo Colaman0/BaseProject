@@ -3,15 +3,21 @@ package com.lsj.colaman.quickproject.test;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.adapter.SimpleAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
+import com.lsj.colaman.quickproject.http.API;
 import com.lsj.colaman.quickproject.layoutmanager.LinearLayoutManagerWrapper;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class SimpleItemActivity extends BaseActivity {
 
@@ -29,9 +35,6 @@ public class SimpleItemActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        for (int i = 0; i < 10; i++) {
-            mData.add(new Data(String.valueOf(mData.size())));
-        }
         mAdapter = new SimpleAdapter(R.layout.item_text, mData);
         recyclerview.setLayoutManager(new LinearLayoutManagerWrapper(this, LinearLayoutManager.VERTICAL, false));
         recyclerview.setAdapter(mAdapter);
@@ -42,13 +45,22 @@ public class SimpleItemActivity extends BaseActivity {
                 add();
             }
         });
+        API.getInstance().getA()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                Log.d("test", "o = " + o);
+            }
+        });
     }
 
     private void add() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             mData.add(new Data(String.valueOf(mData.size())));
         }
         refreshlayout.setRefreshing(false);
-        mAdapter.updateUi(mData);
+        mAdapter.updateUi();
     }
 }
