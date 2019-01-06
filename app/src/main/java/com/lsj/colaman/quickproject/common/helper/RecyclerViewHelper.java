@@ -1,18 +1,23 @@
 package com.lsj.colaman.quickproject.common.helper;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.SparseArray;
 import android.view.View;
+
+import com.lsj.colaman.quickproject.common.view.SimpleDecoration;
 
 /**
  * Create by kyle on 2019/1/4
  * Function : recyclerview 辅助类
  */
 public class RecyclerViewHelper {
+    private static SparseArray<RecyclerView.RecycledViewPool> mRecycledViewPoolMaps;
 
     /**
      * 定位到对应的position，item会在recyclerview顶部(不带动画)
@@ -59,7 +64,6 @@ public class RecyclerViewHelper {
                 ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, 0);
                 View item = layoutManager.getChildAt(0);
                 ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, recyclerView.getHeight() / 2 - item.getMeasuredHeight() / 2);
-                ;
                 return;
             }
         }
@@ -106,5 +110,49 @@ public class RecyclerViewHelper {
         };
         smoothScroller.setTargetPosition(position);
         return smoothScroller;
+    }
+
+    /**
+     * 获取一个适用于LinearlayoutManager的分隔线
+     *
+     * @param context
+     * @param orientation
+     * @return
+     */
+    public static RecyclerView.ItemDecoration getLinearlayoutItemDecoration(Context context, int orientation) {
+        return new SimpleDecoration(context, orientation);
+    }
+
+    /**
+     * 获取一个recyclerviewPool
+     *
+     * @return
+     */
+    public static RecyclerView.RecycledViewPool getRecyclerViewPool() {
+        return new RecyclerView.RecycledViewPool();
+    }
+
+    /**
+     * 通过tag来找出相同的recyclerviewPool,并且设置
+     *
+     * @param recyclerView
+     */
+    public static void setExistRecyclerViewPool(RecyclerView recyclerView) {
+        if (recyclerView != null && recyclerView.getTag() != null && recyclerView.getTag() instanceof Integer) {
+            Integer tag = (Integer) recyclerView.getTag();
+            RecyclerView.RecycledViewPool pool = getRecycledViewPoolMaps().get(tag);
+            if (pool == null) {
+                pool = getRecyclerViewPool();
+                getRecycledViewPoolMaps().put(tag, pool);
+            }
+            recyclerView.setRecycledViewPool(pool);
+        }
+    }
+
+    private static SparseArray<RecyclerView.RecycledViewPool> getRecycledViewPoolMaps() {
+        if (mRecycledViewPoolMaps == null) {
+            mRecycledViewPoolMaps = new SparseArray<>();
+        }
+        return mRecycledViewPoolMaps;
     }
 }
