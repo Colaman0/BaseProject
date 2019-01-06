@@ -4,6 +4,7 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Consumer;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
 import com.lsj.colaman.quickproject.base.RecyclerViewModel;
+import com.lsj.colaman.quickproject.common.imp.OnItemClickListener;
+import com.lsj.colaman.quickproject.common.param.BaseViewHolderBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +30,9 @@ public class BaseAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private SparseArray<Integer> itemViews = new SparseArray<>();
     private RecyclerView mRecyclerView;
+    private SparseArray<OnItemClickListener> mClickListeners;
+    private Consumer<BaseViewHolder> mItemClickConsumer;
+
 
     public BaseAdapter(Context context) {
         this(Collections.<RecyclerViewModel>emptyList(), context);
@@ -47,16 +53,17 @@ public class BaseAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int itemType) {
-        return BaseViewHolder.get(mContext, viewGroup, itemType);
+        return getHolder(mContext, viewGroup, itemType);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        if (i < 0 || i >= mDatas.size()) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        if (position < 0 || position >= mDatas.size()) {
             return;
         }
         if (viewHolder instanceof BaseViewHolder) {
-            RecyclerViewModel recyclerViewModel = mDatas.get(i);
+            // 在这里绑定view以及生命周期
+            RecyclerViewModel recyclerViewModel = mDatas.get(position);
             recyclerViewModel.bindView((BaseViewHolder) viewHolder);
             recyclerViewModel.bindLife(mLifeCycle);
         }
@@ -73,6 +80,44 @@ public class BaseAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mDatas.size();
+    }
+
+    /**
+     * 获取viewholder
+     *
+     * @param context
+     * @param viewGroup
+     * @param itemType  这里把item的layoutRes当作itemType，所以直接传itemType进去
+     * @return
+     */
+    private BaseViewHolder getHolder(Context context, ViewGroup viewGroup, int itemType) {
+        return new BaseViewHolderBuilder(context, viewGroup, itemType)
+                .setItemClickConsumer(getClickConsumer())
+                .build();
+    }
+
+    /**
+     * 获取item点击的回调，所有viewholder共用一个
+      * @return
+     */
+    private Consumer<BaseViewHolder> getClickConsumer() {
+        if (mItemClickConsumer == null) {
+            mItemClickConsumer = baseViewHolder -> {
+                if (baseViewHolder == null) {
+                    return;
+                }
+                // 触发对应viewmodel的onItemClick方法
+                getDatas().get(baseViewHolder.getAdapterPosition()).onItemClick();
+                int size = mClickListeners.size();
+                for (int i = 0; i < size; i++) {
+                    OnItemClickListener onItemClickListener = mClickListeners.valueAt(i);
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(baseViewHolder.getAdapterPosition(), baseViewHolder.getConvertView());
+                    }
+                }
+            };
+        }
+        return mItemClickConsumer;
     }
 
     public List<RecyclerViewModel> getDatas() {
@@ -129,4 +174,19 @@ public class BaseAdapter extends RecyclerView.Adapter {
         }
     }
 
+    /**
+     * 添加点击事件回调，整个itemclick的处理流程是通过一个consumer回调，来处理所有viewholder的根view点击回调，
+     * 当有一个viewholder的view被点击之后，viewholder触发回调，把本身作为参数传递过来，然后再遍历整个listenerarray
+     * 把view和position回调出去
+     */
+    public BaseAdapter addItemClickListener(OnItemClickListener listener) {
+        if (listener == null) {
+            return this;
+        }
+        if (mClickListeners == null) {
+            mClickListeners = new SparseArray<>();
+        }
+        mClickListeners.put(mClickListeners.size(), listener);
+        return this;
+    }
 }

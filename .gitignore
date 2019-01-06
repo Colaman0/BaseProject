@@ -1,11 +1,7 @@
-# Created by .ignore support plugin (hsz.mobi)
-##
-# Taken form https://stackoverflow.com/questions/16736856/what-should-be-in-my-gitignore-for-an-android-studio-project
-#
-
 #built application files
 *.apk
 *.ap_
+*.lock
 
 # files for the dex VM
 *.dex
@@ -26,16 +22,37 @@ Thumbs.db
 # OSX files
 .DS_Store
 
+# Eclipse project files
+.classpath
+.project
+
 # Android Studio
 *.iml
-.idea/
-#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle
-build/
-.navigation
+build
+buildCacheDir
 captures/
-output.json #Since Android Studio 3.0
 
-#NDK
-obj/
-.externalNativeBuild
+.idea
+.idea/compiler.xml
+.idea/misc.xml
+.idea/workspace.xml
+.idea/libraries/
+
+# Gradle Files
+/.gradle
+/.gradle/*
+#gradle.properties
+
+# Log Files
+*.log
+
+# FreeLine
+*.py
+freeline
+
+# Hugo
+ajcore.*.txt
+
+# apk输出文件
+stage
+production

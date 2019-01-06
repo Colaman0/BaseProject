@@ -50,12 +50,10 @@ public class TestViewModel extends RecyclerViewModel {
     @Override
     public void onViewAttached() {
         super.onViewAttached();
-        Log.d("cola", "onViewAttached = " + mI);
     }
 
     @Override
     public void onViewDetached() {
         super.onViewDetached();
-        Log.d("cola", "onViewDetached = " + mI);
     }
 }

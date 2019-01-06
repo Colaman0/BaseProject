@@ -29,13 +29,17 @@ public class TestaViewModel extends RecyclerViewModel {
     }
 
     @Override
+    public void onItemClick() {
+        super.onItemClick();
+        Log.d("cola", "viewmodel =" + mI);
+    }
+
+    @Override
     public void onViewAttached() {
         super.onViewAttached();
-        Log.d("cola", "onViewAttached = " + mI);
     }
 
     public void onViewDetached() {
         super.onViewDetached();
-        Log.d("cola", "onViewDetached = " + mI);
     }
 }
