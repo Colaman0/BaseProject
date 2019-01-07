@@ -80,13 +80,13 @@ public class ImageLoader {
     }
 
 
+
     public void loadCornerImg(Context context, ImageView imageView, String source, int radius) {
         Glide.with(context)
                 .load(source)
                 .apply(getNewOption().transform(new RoundedCornersTransformation(radius, 0, RoundedCornersTransformation.CornerType.ALL)))
                 .into(imageView);
     }
-
 
     /**
      * 下载一个bitmap

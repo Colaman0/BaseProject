@@ -1,7 +1,6 @@
 package com.lsj.colaman.quickproject.base;
 
 import android.arch.lifecycle.Lifecycle;
-import android.util.Log;
 import android.view.View;
 
 /**
