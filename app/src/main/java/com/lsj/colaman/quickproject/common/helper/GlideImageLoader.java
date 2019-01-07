@@ -3,6 +3,7 @@ package com.lsj.colaman.quickproject.common.helper;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -22,17 +23,17 @@ import io.reactivex.schedulers.Schedulers;
  * Create by kyle on 2019/1/7
  * Function :
  */
-public class GlideImageLoaderConfig implements IImageLoad {
+public class GlideImageLoader implements IImageLoad {
     // Glide的配置
     private RequestOptions mRequestOptions;
     // ImageLoader的配置
     private ImageLoaderConfig mImageLoaderConfig;
 
-    private GlideImageLoaderConfig() {
+    private GlideImageLoader() {
 
     }
 
-    public static GlideImageLoaderConfig getInstance() {
+    public static GlideImageLoader getInstance() {
         return Holder.instance;
     }
 
@@ -53,7 +54,7 @@ public class GlideImageLoaderConfig implements IImageLoad {
     }
 
     private static class Holder {
-        private static final GlideImageLoaderConfig instance = new GlideImageLoaderConfig();
+        private static final GlideImageLoader instance = new GlideImageLoader();
     }
 
     /**
@@ -148,7 +149,30 @@ public class GlideImageLoaderConfig implements IImageLoad {
 
     @Override
     public void loadImage(Context context, String url, ImageView imageView, ImageLoaderConfig config) {
+        if (imageView == null || context == null) {
+            return;
+        }
         loadImage(context, url, imageView, getOptionsByConfig(config));
+    }
+
+    @Override
+    public void loadDrawable(Context context, ImageView imageView, int drawableRes) {
+        if (imageView == null || context == null) {
+            return;
+        }
+        Glide.with(context).load(drawableRes).apply(getDefaultOptions()).into(imageView);
+    }
+
+    /**
+     * 加载drawable
+     *
+     * @param context
+     * @param imageView
+     * @param drawable
+     */
+    @Override
+    public void loadDrawable(@NonNull Context context, @NonNull ImageView imageView, @NonNull Drawable drawable) {
+        Glide.with(context).load(drawable).apply(getDefaultOptions()).into(imageView);
     }
 
     /**

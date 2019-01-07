@@ -1,13 +1,19 @@
 package com.lsj.colaman.quickproject.base;
 
 import android.content.Context;
-import android.hardware.camera2.params.OisSample;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.lsj.colaman.quickproject.common.imp.OnItemClickListener;
+import com.lsj.colaman.quickproject.common.helper.GlideImageLoader;
+import com.lsj.colaman.quickproject.common.imp.IImageLoad;
 import com.lsj.colaman.quickproject.common.param.BaseViewHolderBuilder;
 
 /**
@@ -20,6 +26,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     private View mConvertView;
     private Context mContext;
     private ViewGroup mParent;
+    private IImageLoad mImageLoader;
 
     public BaseViewHolder(BaseViewHolderBuilder builder) {
         super(builder.getItemView());
@@ -55,7 +62,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @param viewId
      * @return
      */
-    public <T extends View> T getView(int viewId) {
+    public <T extends View> T getView(@IdRes int viewId) {
         View view = mViews.get(viewId);
         if (view == null) {
             view = mConvertView.findViewById(viewId);
@@ -68,4 +75,92 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return mConvertView;
     }
 
+    /**
+     * 给textview设置内容
+     *
+     * @param id
+     * @param text
+     * @return
+     */
+    public BaseViewHolder setText(@IdRes int id, String text) {
+        View view = getView(id);
+        if (view instanceof TextView) {
+            ((TextView) view).setText(text);
+        }
+        return this;
+    }
+
+    /**
+     * imageview加载图片
+     *
+     * @param id
+     * @param url 网络图片资源
+     * @return
+     */
+    public BaseViewHolder loadImage(@IdRes int id, String url) {
+        View view = getView(id);
+        if (view instanceof ImageView) {
+            getImageLoader().loadImage(getContext(), url, (ImageView) view);
+        }
+        return this;
+    }
+
+    /**
+     * imageview加载圆形图片
+     *
+     * @param id
+     * @param url 网络图片资源
+     * @return
+     */
+    public BaseViewHolder loadCircleImage(@IdRes int id, String url) {
+        View view = getView(id);
+        if (view instanceof ImageView) {
+            getImageLoader().loadCircleImage(getContext(), url, (ImageView) view);
+        }
+        return this;
+    }
+
+    /**
+     * imageview加载圆形图片
+     *
+     * @param id
+     * @param drawableRes 本地drawable资源
+     * @return
+     */
+    public BaseViewHolder loadDrawable(@IdRes int id, @DrawableRes int drawableRes) {
+        View view = getView(id);
+        if (view instanceof ImageView) {
+            getImageLoader().loadDrawable(getContext(), (ImageView) view, drawableRes);
+        }
+        return this;
+    }
+
+    /**
+     * imageview加载圆形图片
+     *
+     * @param id
+     * @param drawable drawable
+     * @return
+     */
+    public BaseViewHolder loadDrawable(@IdRes int id, @NonNull Drawable drawable) {
+        View view = getView(id);
+        if (view instanceof ImageView) {
+            getImageLoader().loadDrawable(getContext(), (ImageView) view, drawable);
+        }
+        return this;
+    }
+
+
+    /**
+     * 获取默认的ImageLoader，如果项目需要替换图片加载框架，直接替换即可
+     *
+     * @return
+     */
+    private IImageLoad getImageLoader() {
+        return GlideImageLoader.getInstance();
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
 }

@@ -2,7 +2,9 @@ package com.lsj.colaman.quickproject.common.imp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.lsj.colaman.quickproject.base.ImageLoaderConfig;
@@ -14,14 +16,17 @@ import io.reactivex.Observable;
  * Function : 图片加载框架的接口规范
  */
 public interface IImageLoad {
-    void loadImage(Context context, String url, ImageView imageView);
+    void loadImage(@NonNull Context context, String url, @NonNull ImageView imageView);
 
-    void loadImage(Context context, String url, ImageView imageView, @DrawableRes int loadingRes, @DrawableRes int errorRes);
+    void loadImage(@NonNull Context context, String url, @NonNull ImageView imageView, @DrawableRes int loadingRes, @DrawableRes int errorRes);
 
-    void loadCircleImage(Context context, String url, ImageView imageView);
+    void loadCircleImage(@NonNull Context context, String url, @NonNull ImageView imageView);
 
     Observable<Bitmap> downLoadBitmap(Context context, final String source);
 
-    void loadImage(Context context, String url, ImageView imageView, ImageLoaderConfig config);
+    void loadImage(@NonNull Context context, String url, @NonNull ImageView imageView, ImageLoaderConfig config);
 
+    void loadDrawable(@NonNull Context context, @NonNull ImageView imageView, @DrawableRes int drawableRes);
+
+    void loadDrawable(@NonNull Context context, @NonNull ImageView imageView, @NonNull Drawable drawable);
 }
