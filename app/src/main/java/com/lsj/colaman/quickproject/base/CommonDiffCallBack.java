@@ -4,6 +4,7 @@ import android.support.v7.util.DiffUtil;
 import android.util.Log;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.lsj.colaman.quickproject.common.imp.IDiffComparator;
 import com.lsj.colaman.quickproject.test.Data;
 
 import java.util.List;
@@ -43,18 +44,7 @@ public class CommonDiffCallBack<T> extends DiffUtil.Callback {
      */
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        T oldData = oldDatas.get(oldItemPosition);
-        T newData = newDatas.get(newItemPosition);
-        if (oldData.getClass() != newData.getClass()) {
-            return false;
-        }
-        if (oldData instanceof MultiItemEntity) {
-            return ((MultiItemEntity) oldData).getItemType() == ((MultiItemEntity) newData).getItemType();
-        }
-        if (oldData instanceof Comparator) {
-            return ((Comparator) oldData).judgmentKey().equals(((Comparator) newData).judgmentKey());
-        }
-        return oldData.equals(newData);
+        return oldDatas.get(oldItemPosition).getClass() == newDatas.get(newItemPosition).getClass();
     }
 
     /**
@@ -68,9 +58,9 @@ public class CommonDiffCallBack<T> extends DiffUtil.Callback {
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         T oldData = oldDatas.get(oldItemPosition);
         T newData = newDatas.get(newItemPosition);
-        if (oldData instanceof Data) {
-            return ((Data) oldData).id.equals(((Data) newData).id);
+        if (oldData instanceof IDiffComparator && newData instanceof IDiffComparator) {
+            return ((IDiffComparator) oldData).isSameData(newData);
         }
-        return oldData.toString().equals(newData.toString());
+        return false;
     }
 }
