@@ -6,13 +6,12 @@ import android.widget.TextView;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
 import com.lsj.colaman.quickproject.base.RecyclerViewModel;
-import com.lsj.colaman.quickproject.common.imp.IDiffComparator;
 
 /**
  * Create by kyle on 2018/12/24
  * Function :
  */
-public class TestViewModel extends RecyclerViewModel implements IDiffComparator<TestViewModel> {
+public class TestViewModel extends RecyclerViewModel {
 
     private int mI;
     private final Activity mActivity;
@@ -56,10 +55,5 @@ public class TestViewModel extends RecyclerViewModel implements IDiffComparator<
     @Override
     public void onViewDetached() {
         super.onViewDetached();
-    }
-
-    @Override
-    public boolean isSameData(TestViewModel testViewModel) {
-        return mI == testViewModel.mI;
     }
 }

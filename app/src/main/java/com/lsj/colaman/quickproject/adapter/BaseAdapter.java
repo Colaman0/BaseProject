@@ -1,21 +1,16 @@
 package com.lsj.colaman.quickproject.adapter;
 
-import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Consumer;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
-import com.lsj.colaman.quickproject.base.BaseViewModel;
-import com.lsj.colaman.quickproject.base.CommonDiffCallBack;
-import com.lsj.colaman.quickproject.base.DiffAdapter;
 import com.lsj.colaman.quickproject.base.RecyclerViewModel;
 import com.lsj.colaman.quickproject.common.imp.OnItemClickListener;
 import com.lsj.colaman.quickproject.common.param.BaseViewHolderBuilder;
@@ -24,12 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.internal.functions.Functions;
-import io.reactivex.schedulers.Schedulers;
-
 
 /**
  * Create by kyle on 2018/12/24
@@ -37,9 +26,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class BaseAdapter extends RecyclerView.Adapter {
     private Lifecycle mLifeCycle;
-    private List<BaseViewModel> oldDatas = new ArrayList<>();
     private List<RecyclerViewModel> mDatas = new ArrayList<>();
     private Context mContext;
+    private SparseArray<Integer> itemViews = new SparseArray<>();
     private RecyclerView mRecyclerView;
     private SparseArray<OnItemClickListener> mClickListeners;
     private Consumer<BaseViewHolder> mItemClickConsumer;
@@ -109,8 +98,7 @@ public class BaseAdapter extends RecyclerView.Adapter {
 
     /**
      * 获取item点击的回调，所有viewholder共用一个
-     *
-     * @return
+      * @return
      */
     private Consumer<BaseViewHolder> getClickConsumer() {
         if (mItemClickConsumer == null) {
@@ -200,24 +188,5 @@ public class BaseAdapter extends RecyclerView.Adapter {
         }
         mClickListeners.put(mClickListeners.size(), listener);
         return this;
-    }
-
-    @SuppressLint("CheckResult")
-    public void diffNotifydatasetchanged() {
-        // TODO: 2019/1/8 加入生命周期的监听 autodisposable
-        Observable.just("")
-                .subscribeOn(Schedulers.computation())
-                .map(s -> DiffUtil.calculateDiff(getDiffCallback(), false))
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(diffResult -> diffResult.dispatchUpdatesTo(BaseAdapter.this))
-                .doOnComplete(() -> {
-                    oldDatas.clear();
-                    oldDatas.addAll(getDatas());
-                })
-                .subscribe(Functions.emptyConsumer(), Functions.emptyConsumer());
-    }
-
-    private DiffUtil.Callback getDiffCallback() {
-        return new CommonDiffCallBack(oldDatas, getDatas());
     }
 }
