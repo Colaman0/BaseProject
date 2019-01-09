@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
@@ -17,23 +16,11 @@ import com.lsj.colaman.quickproject.common.helper.GlideImageLoader;
 import com.lsj.colaman.quickproject.common.imp.IImageLoad;
 import com.lsj.colaman.quickproject.common.param.BaseViewHolderBuilder;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import static android.view.View.GONE;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
-
 /**
  * Create by kyle on 2018/12/24
  * Function :
  */
 public class BaseViewHolder extends RecyclerView.ViewHolder {
-    @IntDef({VISIBLE, INVISIBLE, GONE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Visibility {
-    }
-
     private final BaseViewHolderBuilder mBuilder;
     private SparseArray<View> mViews;
     private View mConvertView;
@@ -159,50 +146,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         View view = getView(id);
         if (view instanceof ImageView) {
             getImageLoader().loadDrawable(getContext(), (ImageView) view, drawable);
-        }
-        return this;
-    }
-
-    /**
-     * 设置view是否可见
-     *
-     * @param id
-     * @param visibility
-     * @return
-     */
-    public BaseViewHolder setVisibility(@IdRes int id, @Visibility int visibility) {
-        View view = getView(id);
-        if (view != null) {
-            view.setVisibility(visibility);
-        }
-        return this;
-    }
-
-
-    /**
-     * 设置view可见
-     *
-     * @param id
-     * @return
-     */
-    public BaseViewHolder setViewVisible(@IdRes int id) {
-        View view = getView(id);
-        if (view != null) {
-            view.setVisibility(VISIBLE);
-        }
-        return this;
-    }
-
-    /**
-     * 设置view不可见
-     *
-     * @param id
-     * @return
-     */
-    public BaseViewHolder setViewGone(@IdRes int id) {
-        View view = getView(id);
-        if (view != null) {
-            view.setVisibility(GONE);
         }
         return this;
     }
