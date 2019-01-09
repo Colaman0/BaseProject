@@ -13,43 +13,37 @@ import java.util.List;
  * Function : 操作数据源的adapter
  */
 public class ListAdapter<T extends BaseAdapter> extends BaseAdapter<T> {
-    private List<RecyclerViewModel> mDatas = new ArrayList<>();
 
     public ListAdapter(Context context) {
         super(context);
     }
 
-
-    public List<RecyclerViewModel> getDatas() {
-        return mDatas;
-    }
-
     public void add(RecyclerViewModel viewModel) {
-        mDatas.add(viewModel);
+        getDatas().add(viewModel);
     }
 
     public void add(int index, RecyclerViewModel viewModel) {
-        mDatas.add(index, viewModel);
+        getDatas().add(index, viewModel);
     }
 
     public void addAll(Collection<RecyclerViewModel> list) {
-        mDatas.addAll(list);
+        getDatas().addAll(list);
     }
 
     public void addAll(int index, Collection<RecyclerViewModel> list) {
-        mDatas.addAll(index, list);
+        getDatas().addAll(index, list);
     }
 
     public void remove(RecyclerViewModel viewModel) {
-        mDatas.remove(viewModel);
+        getDatas().remove(viewModel);
     }
 
     public void remove(int index) {
-        mDatas.remove(index);
+        getDatas().remove(index);
     }
 
     public void clear() {
-        mDatas.clear();
+        getDatas().clear();
     }
 
 }
