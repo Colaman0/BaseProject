@@ -24,11 +24,10 @@ import java.util.List;
  * Create by kyle on 2018/12/24
  * Function :
  */
-public class BaseAdapter extends RecyclerView.Adapter {
+public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
     private Lifecycle mLifeCycle;
     private List<RecyclerViewModel> mDatas = new ArrayList<>();
     private Context mContext;
-    private SparseArray<Integer> itemViews = new SparseArray<>();
     private RecyclerView mRecyclerView;
     private SparseArray<OnItemClickListener> mClickListeners;
     private Consumer<BaseViewHolder> mItemClickConsumer;
@@ -44,6 +43,10 @@ public class BaseAdapter extends RecyclerView.Adapter {
         if (mContext instanceof LifecycleOwner) {
             mLifeCycle = ((LifecycleOwner) mContext).getLifecycle();
         }
+    }
+
+    public T getThis() {
+        return (T) this;
     }
 
     private void initConfig() {
@@ -98,7 +101,8 @@ public class BaseAdapter extends RecyclerView.Adapter {
 
     /**
      * 获取item点击的回调，所有viewholder共用一个
-      * @return
+     *
+     * @return
      */
     private Consumer<BaseViewHolder> getClickConsumer() {
         if (mItemClickConsumer == null) {
@@ -136,10 +140,10 @@ public class BaseAdapter extends RecyclerView.Adapter {
         return mLifeCycle;
     }
 
-    public BaseAdapter bindRecyclerView(RecyclerView recyclerView) {
+    public T bindRecyclerView(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
         initConfig();
-        return this;
+        return getThis();
     }
 
     public RecyclerView getRecyclerView() {
@@ -179,14 +183,16 @@ public class BaseAdapter extends RecyclerView.Adapter {
      * 当有一个viewholder的view被点击之后，viewholder触发回调，把本身作为参数传递过来，然后再遍历整个listenerarray
      * 把view和position回调出去
      */
-    public BaseAdapter addItemClickListener(OnItemClickListener listener) {
+    public T addItemClickListener(OnItemClickListener listener) {
         if (listener == null) {
-            return this;
+            return getThis();
         }
         if (mClickListeners == null) {
             mClickListeners = new SparseArray<>();
         }
         mClickListeners.put(mClickListeners.size(), listener);
-        return this;
+        return getThis();
     }
+
+
 }

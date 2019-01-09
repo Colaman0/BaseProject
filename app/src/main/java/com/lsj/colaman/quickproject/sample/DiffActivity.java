@@ -1,22 +1,21 @@
-package com.lsj.colaman.quickproject;
+package com.lsj.colaman.quickproject.sample;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.lsj.colaman.quickproject.R;
+import com.lsj.colaman.quickproject.TestaViewModel;
 import com.lsj.colaman.quickproject.adapter.BaseAdapter;
 import com.lsj.colaman.quickproject.adapter.DiffAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
-import com.lsj.colaman.quickproject.common.helper.RecyclerViewHelper;
-import com.lsj.colaman.quickproject.common.imp.OnItemClickListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TestActivity extends BaseActivity {
+public class DiffActivity extends BaseActivity {
 
     RecyclerView recyclerview;
     @BindView(R.id.btn_1)
@@ -25,6 +24,7 @@ public class TestActivity extends BaseActivity {
     Button btn2;
     @BindView(R.id.btn_3)
     Button btn3;
+
     private DiffAdapter mAdapter;
 
     @Override
@@ -43,7 +43,7 @@ public class TestActivity extends BaseActivity {
         for (int i = 0; i < 100; i++) {
             mAdapter.add(new TestaViewModel(i));
         }
-        mAdapter.notifyDataSetChanged();
+        mAdapter.diffNotifydatasetchanged();
 
     }
 
@@ -51,7 +51,7 @@ public class TestActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
-                mAdapter.getDatas().add(0, new TestaViewModel(101));
+                mAdapter.getDatas().add(new TestaViewModel(1001));
                 mAdapter.diffNotifydatasetchanged();
                 break;
             case R.id.btn_2:
