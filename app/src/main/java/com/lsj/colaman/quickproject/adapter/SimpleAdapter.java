@@ -6,12 +6,15 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lsj.colaman.quickproject.base.RecyclerViewModel;
 import com.lsj.colaman.quickproject.test.Data;
 import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.base.CommonDiffCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * Create by kyle on 2018/9/21
@@ -39,9 +42,6 @@ public class SimpleAdapter extends BaseQuickAdapter<Data, BaseViewHolder> {
     }
 
     public void updateUi() {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new CommonDiffCallBack<>(getData(), mDatas), false);
-        diffResult.dispatchUpdatesTo(this);
-        getData().clear();
-        getData().addAll(mDatas);
+
     }
 }

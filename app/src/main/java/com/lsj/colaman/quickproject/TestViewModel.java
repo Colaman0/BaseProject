@@ -56,4 +56,9 @@ public class TestViewModel extends RecyclerViewModel {
     public void onViewDetached() {
         super.onViewDetached();
     }
+
+    @Override
+    public boolean isSameData(Object o) {
+        return false;
+    }
 }

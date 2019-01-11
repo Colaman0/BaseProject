@@ -1,10 +1,12 @@
 package com.lsj.colaman.quickproject;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
 import com.lsj.colaman.quickproject.base.RecyclerViewModel;
+import com.lsj.colaman.quickproject.common.helper.AnimationHelper;
 
 /**
  * Create by kyle on 2018/12/24
@@ -25,13 +27,23 @@ public class TestaViewModel extends RecyclerViewModel {
 
     public void bindView(BaseViewHolder holder) {
         super.bindView(holder);
-        ((TextView) holder.getView(R.id.text)).setText("right" + String.valueOf(mI));
+        TextView view = (TextView) holder.getView(R.id.text);
+        view.setText("right" + String.valueOf(mI));
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("cola", "x =" + view.getX());
+                Log.d("cola", "getTranslationX =" + view.getTranslationX());
+                Log.d("cola", "getScrollX =" + view.getScrollX());
+
+                AnimationHelper.scrollY(10,holder.getView(R.id.text),300);
+            }
+        });
     }
 
     @Override
     public void onItemClick() {
         super.onItemClick();
-        Log.d("cola", "viewmodel =" + mI);
     }
 
     @Override
@@ -41,5 +53,10 @@ public class TestaViewModel extends RecyclerViewModel {
 
     public void onViewDetached() {
         super.onViewDetached();
+    }
+
+    @Override
+    public boolean isSameData(Object o) {
+        return false;
     }
 }

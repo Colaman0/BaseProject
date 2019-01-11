@@ -3,11 +3,13 @@ package com.lsj.colaman.quickproject.base;
 import android.arch.lifecycle.Lifecycle;
 import android.view.View;
 
+import com.lsj.colaman.quickproject.common.imp.IDiffComparator;
+
 /**
  * Create by kyle on 2018/12/24
  * Function :
  */
-public abstract class RecyclerViewModel extends BaseViewModel {
+public abstract class RecyclerViewModel extends BaseViewModel implements IDiffComparator {
 
     private BaseViewHolder mHolder;
 

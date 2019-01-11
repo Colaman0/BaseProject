@@ -1,9 +1,11 @@
 package com.lsj.colaman.quickproject.base;
 
 import android.support.v7.util.DiffUtil;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.lsj.colaman.quickproject.common.imp.IDiffComparator;
 import com.lsj.colaman.quickproject.test.Data;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  * Create by kyle on 2018/9/3
  * Function : 通用的diffutilzh
  */
-public class CommonDiffCallBack<T> extends DiffUtil.Callback {
+public class CommonDiffCallBack<T extends IDiffComparator> extends DiffUtil.Callback {
     List<T> oldDatas;
     List<T> newDatas;
 
@@ -45,16 +47,10 @@ public class CommonDiffCallBack<T> extends DiffUtil.Callback {
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
         T oldData = oldDatas.get(oldItemPosition);
         T newData = newDatas.get(newItemPosition);
-        if (oldData.getClass() != newData.getClass()) {
+        if (oldData == null || newData == null) {
             return false;
         }
-        if (oldData instanceof MultiItemEntity) {
-            return ((MultiItemEntity) oldData).getItemType() == ((MultiItemEntity) newData).getItemType();
-        }
-        if (oldData instanceof Comparator) {
-            return ((Comparator) oldData).judgmentKey().equals(((Comparator) newData).judgmentKey());
-        }
-        return oldData.equals(newData);
+        return oldData.getClass() == newData.getClass();
     }
 
     /**
@@ -66,11 +62,6 @@ public class CommonDiffCallBack<T> extends DiffUtil.Callback {
      */
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        T oldData = oldDatas.get(oldItemPosition);
-        T newData = newDatas.get(newItemPosition);
-        if (oldData instanceof Data) {
-            return ((Data) oldData).id.equals(((Data) newData).id);
-        }
-        return oldData.toString().equals(newData.toString());
+        return oldDatas.get(oldItemPosition).isSameData(newDatas.get(newItemPosition));
     }
 }

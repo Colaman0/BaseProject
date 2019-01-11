@@ -6,4 +6,6 @@ package com.lsj.colaman.quickproject.base;
  */
 public interface Comparator<T> {
      Object judgmentKey();
+
+
 }
