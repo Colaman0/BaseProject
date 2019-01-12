@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
+import com.lsj.colaman.quickproject.base.ImageLoader;
+import com.lsj.colaman.quickproject.common.imp.IImageLoad;
 
 /**
  * Create by kyle on 2019/1/6
@@ -18,6 +20,7 @@ public class BaseViewHolderBuilder {
     private int mLayoutId;
     private View mItemView;
     private Consumer<BaseViewHolder> mItemClickConsumer;
+    private IImageLoad mImageLoader;
 
 
     public BaseViewHolderBuilder(Context context, ViewGroup viewGroup, int layoutId) {
@@ -75,6 +78,15 @@ public class BaseViewHolderBuilder {
 
     public BaseViewHolderBuilder setItemClickConsumer(Consumer<BaseViewHolder> itemClickConsumer) {
         mItemClickConsumer = itemClickConsumer;
+        return this;
+    }
+
+    public IImageLoad getImageLoader() {
+        return mImageLoader;
+    }
+
+    public BaseViewHolderBuilder setImageLoader(IImageLoad imageLoader) {
+        mImageLoader = imageLoader;
         return this;
     }
 }

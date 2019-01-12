@@ -93,10 +93,13 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
      * @param itemType  这里把item的layoutRes当作itemType，所以直接传itemType进去
      * @return
      */
-    private BaseViewHolder getHolder(Context context, ViewGroup viewGroup, int itemType) {
+    protected BaseViewHolder getHolder(Context context, ViewGroup viewGroup, int itemType) {
+        return getDefaultBuilder(context, viewGroup, itemType).build();
+    }
+
+    protected BaseViewHolderBuilder getDefaultBuilder(Context context, ViewGroup viewGroup, int itemType) {
         return new BaseViewHolderBuilder(context, viewGroup, itemType)
-                .setItemClickConsumer(getClickConsumer())
-                .build();
+                .setItemClickConsumer(getClickConsumer());
     }
 
     /**

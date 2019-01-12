@@ -1,17 +1,13 @@
 package com.lsj.colaman.quickproject;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.lsj.colaman.quickproject.adapter.BaseAdapter;
-import com.lsj.colaman.quickproject.adapter.DiffAdapter;
+import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
-import com.lsj.colaman.quickproject.common.helper.RecyclerViewHelper;
-import com.lsj.colaman.quickproject.common.imp.OnItemClickListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,7 +21,7 @@ public class TestActivity extends BaseActivity {
     Button btn2;
     @BindView(R.id.btn_3)
     Button btn3;
-    private DiffAdapter mAdapter;
+    private FeaturesAdapter mAdapter;
 
     @Override
     protected int initLayoutRes() {
@@ -35,7 +31,7 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void initView() {
         recyclerview = findViewById(R.id.recyclerview);
-        mAdapter = new DiffAdapter(this)
+        mAdapter = new FeaturesAdapter(this)
                 .bindRecyclerView(recyclerview)
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
         recyclerview.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));

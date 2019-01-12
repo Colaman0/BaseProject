@@ -214,7 +214,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @return
      */
     private IImageLoad getImageLoader() {
-        return GlideImageLoader.getInstance();
+        return mBuilder.getImageLoader();
     }
 
     public Context getContext() {

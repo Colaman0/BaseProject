@@ -8,8 +8,7 @@ import android.widget.Button;
 
 import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.TestaViewModel;
-import com.lsj.colaman.quickproject.adapter.BaseAdapter;
-import com.lsj.colaman.quickproject.adapter.DiffAdapter;
+import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
 
 import butterknife.BindView;
@@ -25,7 +24,7 @@ public class DiffActivity extends BaseActivity {
     @BindView(R.id.btn_3)
     Button btn3;
 
-    private DiffAdapter mAdapter;
+    private FeaturesAdapter mAdapter;
 
     @Override
     protected int initLayoutRes() {
@@ -35,7 +34,7 @@ public class DiffActivity extends BaseActivity {
     @Override
     protected void initView() {
         recyclerview = findViewById(R.id.recyclerview);
-        mAdapter = new DiffAdapter(this)
+        mAdapter = new FeaturesAdapter(this)
                 .bindRecyclerView(recyclerview)
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
         recyclerview.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
