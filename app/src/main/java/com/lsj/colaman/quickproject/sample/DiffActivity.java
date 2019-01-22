@@ -10,6 +10,8 @@ import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.TestaViewModel;
 import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
+import com.lsj.colaman.quickproject.base.BaseLoadmoreVModel;
+import com.lsj.colaman.quickproject.common.view.LoadMoreView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,10 +38,11 @@ public class DiffActivity extends BaseActivity {
         recyclerview = findViewById(R.id.recyclerview);
         mAdapter = new FeaturesAdapter(this)
                 .bindRecyclerView(recyclerview)
+                .setLoadMoreView(new LoadMoreView())
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
         recyclerview.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         recyclerview.setAdapter(mAdapter);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             mAdapter.add(new TestaViewModel(i));
         }
         mAdapter.diffNotifydatasetchanged();
@@ -50,10 +53,14 @@ public class DiffActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
+                mAdapter.handleAdapterResult(true);
+
                 mAdapter.getDatas().add(new TestaViewModel(1001));
                 mAdapter.diffNotifydatasetchanged();
+
                 break;
             case R.id.btn_2:
+                mAdapter.handleAdapterResult(false);
                 mAdapter.getDatas().remove(0);
                 mAdapter.diffNotifydatasetchanged();
                 break;

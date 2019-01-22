@@ -61,9 +61,6 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        if (position < 0 || position >= mDatas.size()) {
-            return;
-        }
         if (viewHolder instanceof BaseViewHolder) {
             // 在这里绑定view以及生命周期
             RecyclerViewModel recyclerViewModel = mDatas.get(position);
@@ -74,9 +71,6 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position < 0 || position >= mDatas.size()) {
-            return 0;
-        }
         return mDatas.get(position).getLayoutRes();
     }
 

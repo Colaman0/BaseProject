@@ -19,6 +19,7 @@ import com.lsj.colaman.quickproject.common.param.BaseViewHolderBuilder;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.logging.Handler;
 
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
