@@ -47,16 +47,15 @@ public class TestActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
-                mAdapter.getDatas().add(0, new TestaViewModel(101));
-                mAdapter.diffNotifydatasetchanged();
+                mAdapter.canLoadMore(false);
                 break;
             case R.id.btn_2:
-                mAdapter.getDatas().remove(0);
-                mAdapter.diffNotifydatasetchanged();
+//                mAdapter.getDatas().remove(0);
+//                mAdapter.diffNotifydatasetchanged();
                 break;
             case R.id.btn_3:
-                mAdapter.getDatas().clear();
-                mAdapter.diffNotifydatasetchanged();
+//                mAdapter.getDatas().clear();
+//                mAdapter.diffNotifydatasetchanged();
                 break;
         }
     }

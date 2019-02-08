@@ -31,7 +31,7 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     private IImageLoad mIImageLoad;
     private List<BaseViewModel> oldDatas = new ArrayList<>();
     // 是否开始loadmore的标记
-    private boolean mDisableLoadmore;
+    private boolean mDisableLoadmore = false;
     private BaseLoadmoreVModel mILoadMore;
 
     public FeaturesAdapter(Context context) {
@@ -48,7 +48,7 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     @Override
     public int getItemViewType(int position) {
         if (isLoadmoreVisible(position)) {
-            return mILoadMore.getLayoutRes();
+            return getLoadMoreView().getLayoutRes();
         }
         return super.getItemViewType(position);
     }
@@ -62,8 +62,8 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if (isLoadmoreVisible(position)) {
-            mILoadMore.bindView((BaseViewHolder) viewHolder);
-            mILoadMore.bindLife(getLifeCycle());
+            getLoadMoreView().bindView((BaseViewHolder) viewHolder);
+            getLoadMoreView().bindLife(getLifeCycle());
             if (!getLoadMoreView().isLoading()) {
                 getLoadMoreView().OnLoadMore();
                 getLoadMoreView().setLoading(true);
@@ -87,20 +87,15 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     }
 
     public void handleLoadmoreStatus(boolean success) {
+        if (mDisableLoadmore == false) {
+            return;
+        }
         getLoadMoreView().setLoading(false);
         if (success) {
-            mILoadMore.OnLoadMoreSuccess();
+            getLoadMoreView().OnLoadMoreSuccess();
         } else {
-            mILoadMore.OnLoadMoreFailed();
+            getLoadMoreView().OnLoadMoreFailed();
         }
-        getRecyclerView().post(new Runnable() {
-            @Override
-            public void run() {
-                mDisableLoadmore = false;
-                notifyItemChanged(getItemCount() - 1);
-            }
-        });
-
     }
 
     @SuppressLint("CheckResult")
@@ -120,6 +115,17 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
 
     private DiffUtil.Callback getDiffCallback() {
         return new CommonDiffCallBack(oldDatas, getDatas());
+    }
+
+    /**
+     *  insert/remove掉loadmoreviewmodel
+     */
+    private void switchLoadMore (){
+        if (mDisableLoadmore) {
+            notifyItemInserted(getItemCount());
+        }else{
+            notifyItemRemoved(getItemCount());
+        }
     }
 
     /**
@@ -147,7 +153,7 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     }
 
     private BaseLoadmoreVModel getLoadMoreView() {
-        if (mIImageLoad == null) {
+        if (mILoadMore == null) {
 
         }
         return mILoadMore;
@@ -160,6 +166,18 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
         mDisableLoadmore = true;
         mILoadMore = loadMoreView;
         return this;
+    }
+
+    /**
+     * 是否开启loadmore
+     *
+     * @param disableLoadmore
+     */
+    public void canLoadMore(boolean disableLoadmore) {
+        if (disableLoadmore != mDisableLoadmore) {
+            mDisableLoadmore = disableLoadmore;
+            getRecyclerView().post(() -> switchLoadMore());
+        }
     }
 
     /**

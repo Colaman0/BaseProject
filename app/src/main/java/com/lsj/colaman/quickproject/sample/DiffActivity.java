@@ -40,7 +40,7 @@ public class DiffActivity extends BaseActivity {
                 .bindRecyclerView(recyclerview)
                 .setLoadMoreView(new LoadMoreView())
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
-        recyclerview.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+        recyclerview.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerview.setAdapter(mAdapter);
         for (int i = 0; i < 10; i++) {
             mAdapter.add(new TestaViewModel(i));
@@ -53,16 +53,14 @@ public class DiffActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
-                mAdapter.handleAdapterResult(true);
-
                 mAdapter.getDatas().add(new TestaViewModel(1001));
                 mAdapter.diffNotifydatasetchanged();
-
+                mAdapter.handleLoadmoreStatus(true);
                 break;
             case R.id.btn_2:
-                mAdapter.handleAdapterResult(false);
                 mAdapter.getDatas().remove(0);
                 mAdapter.diffNotifydatasetchanged();
+                mAdapter.handleLoadmoreStatus(true);
                 break;
             case R.id.btn_3:
                 mAdapter.getDatas().clear();
