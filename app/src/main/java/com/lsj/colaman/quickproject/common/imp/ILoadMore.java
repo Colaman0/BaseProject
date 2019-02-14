@@ -7,7 +7,7 @@ package com.lsj.colaman.quickproject.common.imp;
 public interface ILoadMore {
     public static final int LOADMORE = 1;
 
-    void OnLoadMore();
+    void OnStartLoadMore();
 
     void OnLoadMoreFailed();
 

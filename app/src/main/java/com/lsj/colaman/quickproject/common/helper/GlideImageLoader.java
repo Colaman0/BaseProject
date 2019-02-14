@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Create by kyle on 2019/1/7
- * Function :
+ * Function : Glide 图片加载辅助类
  */
 public class GlideImageLoader implements IImageLoad {
     // Glide的配置

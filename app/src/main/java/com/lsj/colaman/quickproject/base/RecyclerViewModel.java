@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.lsj.colaman.quickproject.common.imp.IDiffComparator;
 
+import butterknife.ButterKnife;
+
 /**
  * Create by kyle on 2018/12/24
  * Function :
@@ -19,11 +21,15 @@ public abstract class RecyclerViewModel extends BaseViewModel implements IDiffCo
         mHolder = holder;
         if (holder != null && holder.getConvertView() != null) {
             holder.getConvertView().setTag(this);
+            onBindView(holder);
         }
     }
 
+    protected abstract void onBindView(BaseViewHolder holder);
+
     /**
      * 获取viewmodel的根view
+     *
      * @return
      */
     public View getConvertView() {
@@ -31,6 +37,10 @@ public abstract class RecyclerViewModel extends BaseViewModel implements IDiffCo
             return null;
         }
         return mHolder.getConvertView();
+    }
+
+    public BaseViewHolder getViewHolder() {
+        return mHolder;
     }
 
 

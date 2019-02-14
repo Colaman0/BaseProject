@@ -56,6 +56,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         setItemClickListener();
     }
 
+    protected BaseViewHolderBuilder getBuilder() {
+        return mBuilder;
+    }
+
     /**
      * 设置item的点击事件
      */

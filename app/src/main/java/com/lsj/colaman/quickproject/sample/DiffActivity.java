@@ -10,7 +10,6 @@ import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.TestaViewModel;
 import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
-import com.lsj.colaman.quickproject.base.BaseLoadmoreVModel;
 import com.lsj.colaman.quickproject.common.view.LoadMoreView;
 
 import butterknife.BindView;
@@ -38,7 +37,7 @@ public class DiffActivity extends BaseActivity {
         recyclerview = findViewById(R.id.recyclerview);
         mAdapter = new FeaturesAdapter(this)
                 .bindRecyclerView(recyclerview)
-                .setLoadMoreView(new LoadMoreView())
+                .setLoadMoreView(getLoadMoreView())
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
         recyclerview.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
         recyclerview.setAdapter(mAdapter);
@@ -49,18 +48,26 @@ public class DiffActivity extends BaseActivity {
 
     }
 
+    private LoadMoreView getLoadMoreView() {
+        return new LoadMoreView().setProgressColor(R.color.dracula_album_dropdown_thumbnail_placeholder);
+    }
+
     @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
                 mAdapter.getDatas().add(new TestaViewModel(1001));
+                mAdapter.getDatas().add(new TestaViewModel(1001));
+                mAdapter.getDatas().add(new TestaViewModel(1001));
                 mAdapter.diffNotifydatasetchanged();
-                mAdapter.handleLoadmoreStatus(true);
+                mAdapter.canLoadMore(true);
                 break;
             case R.id.btn_2:
                 mAdapter.getDatas().remove(0);
+                mAdapter.getDatas().remove(0);
+                mAdapter.getDatas().remove(0);
                 mAdapter.diffNotifydatasetchanged();
-                mAdapter.handleLoadmoreStatus(true);
+                mAdapter.canLoadMore(false);
                 break;
             case R.id.btn_3:
                 mAdapter.getDatas().clear();

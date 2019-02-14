@@ -29,21 +29,18 @@ public class TestaViewModel extends RecyclerViewModel {
         super.bindView(holder);
         TextView view = (TextView) holder.getView(R.id.text);
         view.setText("right" + String.valueOf(mI));
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("cola", "x =" + view.getX());
-                Log.d("cola", "getTranslationX =" + view.getTranslationX());
-                Log.d("cola", "getScrollX =" + view.getScrollX());
 
-                AnimationHelper.scrollY(10,holder.getView(R.id.text),300);
-            }
-        });
+    }
+
+    @Override
+    protected void onBindView(BaseViewHolder holder) {
+
     }
 
     @Override
     public void onItemClick() {
         super.onItemClick();
+        AnimationHelper.scrollY(10,getViewHolder().getView(R.id.text),200);
     }
 
     @Override

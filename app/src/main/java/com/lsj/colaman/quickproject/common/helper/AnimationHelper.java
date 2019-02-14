@@ -4,7 +4,7 @@ import android.view.View;
 
 /**
  * Create by kyle on 2019/1/11
- * Function :
+ * Function : 动画辅助类
  */
 public class AnimationHelper {
     public static void height(float scale, View view, long duration) {
@@ -39,7 +39,7 @@ public class AnimationHelper {
     }
 
     public static void scrollX(float x, View view, long duration) {
-        if (view == null ) {
+        if (view == null) {
             return;
         }
         view.animate()
@@ -48,8 +48,8 @@ public class AnimationHelper {
                 .start();
     }
 
-    public static void scrollY (float y, View view, long duration) {
-        if (view == null ) {
+    public static void scrollY(float y, View view, long duration) {
+        if (view == null) {
             return;
         }
         view.animate()
@@ -58,12 +58,12 @@ public class AnimationHelper {
                 .start();
     }
 
-    public static void scroll (float x,float y, View view, long duration) {
-        if (view == null ) {
+    public static void scroll(float x, float y, View view, long duration) {
+        if (view == null) {
             return;
         }
         view.animate()
-                .translationXBy(y)
+                .translationXBy(x)
                 .translationXBy(y)
                 .setDuration(duration)
                 .start();

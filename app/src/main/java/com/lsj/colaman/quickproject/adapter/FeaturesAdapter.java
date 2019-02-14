@@ -65,7 +65,7 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
             getLoadMoreView().bindView((BaseViewHolder) viewHolder);
             getLoadMoreView().bindLife(getLifeCycle());
             if (!getLoadMoreView().isLoading()) {
-                getLoadMoreView().OnLoadMore();
+                getLoadMoreView().OnStartLoadMore();
                 getLoadMoreView().setLoading(true);
             }
         } else {
@@ -118,12 +118,12 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     }
 
     /**
-     *  insert/remove掉loadmoreviewmodel
+     * insert/remove掉loadmoreviewmodel
      */
-    private void switchLoadMore (){
+    private void switchLoadMore() {
         if (mDisableLoadmore) {
             notifyItemInserted(getItemCount());
-        }else{
+        } else {
             notifyItemRemoved(getItemCount());
         }
     }
@@ -171,12 +171,13 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     /**
      * 是否开启loadmore
      *
-     * @param disableLoadmore
+     * @param disableLoadmore 是否允许loadmore
      */
     public void canLoadMore(boolean disableLoadmore) {
         if (disableLoadmore != mDisableLoadmore) {
             mDisableLoadmore = disableLoadmore;
-            getRecyclerView().post(() -> switchLoadMore());
+            // 避免异步处理数据的时候抛出异常
+            getRecyclerView().post(this::switchLoadMore);
         }
     }
 

@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.lsj.colaman.quickproject.base.RecyclerViewModel;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Create by kyle on 2019/1/9

@@ -32,6 +32,11 @@ public class TestViewModel extends RecyclerViewModel {
     }
 
     @Override
+    protected void onBindView(BaseViewHolder holder) {
+
+    }
+
+    @Override
     protected void onLifeDestory() {
         super.onLifeDestory();
     }
