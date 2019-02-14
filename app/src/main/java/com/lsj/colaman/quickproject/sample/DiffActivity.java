@@ -11,6 +11,7 @@ import com.lsj.colaman.quickproject.TestaViewModel;
 import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
 import com.lsj.colaman.quickproject.common.view.LoadMoreView;
+import com.lsj.colaman.quickproject.layoutmanager.GridLayoutManagerWrapper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,7 +40,8 @@ public class DiffActivity extends BaseActivity {
                 .bindRecyclerView(recyclerview)
                 .setLoadMoreView(getLoadMoreView())
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
-        recyclerview.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
+        recyclerview.setLayoutManager(new GridLayoutManagerWrapper(this, 2, GridLayoutManager.VERTICAL, false)
+                .fixLoadmore(mAdapter));
         recyclerview.setAdapter(mAdapter);
         for (int i = 0; i < 10; i++) {
             mAdapter.add(new TestaViewModel(i));

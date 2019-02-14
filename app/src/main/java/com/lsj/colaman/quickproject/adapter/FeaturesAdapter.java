@@ -13,7 +13,6 @@ import com.lsj.colaman.quickproject.base.BaseViewModel;
 import com.lsj.colaman.quickproject.base.CommonDiffCallBack;
 import com.lsj.colaman.quickproject.common.helper.GlideImageLoader;
 import com.lsj.colaman.quickproject.common.imp.IImageLoad;
-import com.lsj.colaman.quickproject.common.imp.ILoadMore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,12 +181,12 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
     }
 
     /**
-     * 判断loadmore的item是否允许显示
+     * 判断loadmore的item是否显示
      *
      * @param position
      * @return
      */
-    private boolean isLoadmoreVisible(int position) {
+    public boolean isLoadmoreVisible(int position) {
         return position == getItemCount() - 1 && mDisableLoadmore;
     }
 }

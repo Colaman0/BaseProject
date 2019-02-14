@@ -1,8 +1,11 @@
 package com.lsj.colaman.quickproject.layoutmanager;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+
+import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 
 /**
  * <p>
