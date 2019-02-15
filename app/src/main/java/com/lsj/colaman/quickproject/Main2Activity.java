@@ -1,5 +1,6 @@
 package com.lsj.colaman.quickproject;
 
+import android.support.v4.view.PagerTabStrip;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 

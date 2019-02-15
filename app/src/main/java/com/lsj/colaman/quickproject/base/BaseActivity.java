@@ -17,13 +17,14 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.lsj.colaman.quickproject.R;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SupportActivity;
 
 
 /**
  * Create by kyle on 2018/9/19
  * Function : baseActivity
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SupportActivity {
     private LifecycleRegistry mLifecycleRegistry;
 
     // 状态栏颜色

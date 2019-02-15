@@ -15,6 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".sample.TabActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="design_width_in_dp"
             android:value="360" />
@@ -33,23 +41,12 @@
         </provider>
 
         <activity android:name=".test.SimpleItemActivity" />
-        <activity android:name=".test.ImageActivity"></activity>
-        <activity android:name=".test.LayoutActivity">
-
-        </activity>
-        <activity android:name=".Main2Activity">
-
-        </activity>
-        <activity android:name=".TestActivity">
-
-        </activity>
-
+        <activity android:name=".test.ImageActivity" />
+        <activity android:name=".test.LayoutActivity"></activity>
+        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".TestActivity"></activity>
         <activity android:name=".sample.DiffActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
