@@ -1,4 +1,4 @@
-package com.lsj.colaman.quickproject.util;
+package com.lsj.colaman.quickproject.common.helper;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

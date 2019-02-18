@@ -1,4 +1,4 @@
-package com.lsj.colaman.quickproject.util;
+package com.lsj.colaman.quickproject.common.helper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,6 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.util.Set;
-import java.util.function.Function;
 
 import io.reactivex.functions.Action;
 

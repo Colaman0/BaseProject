@@ -39,7 +39,6 @@ public class TabFragment extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return LayoutInflater.from(getContext()).inflate(R.layout.include_page, container, false);
     }
 

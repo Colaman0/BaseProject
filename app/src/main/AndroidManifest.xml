@@ -16,11 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".sample.RxjavaActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".sample.TabActivity"></activity>
 
@@ -47,6 +43,25 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".sample.DiffActivity">
+
+        </activity>
+
+        <activity android:name=".BottomTabActivity">
+
+        </activity>
+
+        <activity android:name=".FirstActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ChangePswActivity">
+
+        </activity>
+        <activity android:name=".UserInfoActivity">
 
         </activity>
     </application>

@@ -1,34 +1,21 @@
 package com.lsj.colaman.quickproject.test;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.EncodeUtils;
-import com.blankj.utilcode.util.FileUtils;
 import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.base.BaseActivity;
 import com.lsj.colaman.quickproject.base.ImageLoader;
-import com.lsj.colaman.quickproject.util.PermissionUtil;
-import com.lsj.colaman.quickproject.util.PhotoPickerUtil;
+import com.lsj.colaman.quickproject.common.helper.PermissionUtil;
 import com.yanzhenjie.permission.Permission;
-import com.zhihu.matisse.MimeType;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.security.Permissions;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
