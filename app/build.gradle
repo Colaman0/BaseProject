@@ -4,7 +4,7 @@ android {
     defaultConfig {
         applicationId "com.lsj.colaman.quickproject"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion '28'
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -14,8 +14,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    repositories{
-        flatDir{
+    repositories {
+        flatDir {
             dirs 'libs'
         }
     }
@@ -38,7 +38,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:appcompat-v7:27.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     // 屏幕适配
     implementation 'me.jessyan:autosize:0.9.5'
@@ -74,8 +74,11 @@ dependencies {
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
     // fragment
     implementation 'me.yokeyword:fragmentation:1.3.6'
+    // tablayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    compile(name:'tab',ext:'aar')
+
+
+    compile(name: 'tab', ext: 'aar')
 
 
     implementation 'com.google.guava:guava:25.0-android'

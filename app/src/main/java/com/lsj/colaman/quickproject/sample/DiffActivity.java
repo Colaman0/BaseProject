@@ -1,5 +1,10 @@
 package com.lsj.colaman.quickproject.sample;
 
+import android.arch.lifecycle.Observer;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.os.UserHandle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -7,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lsj.colaman.quickproject.R;
+import com.lsj.colaman.quickproject.TestActivity;
 import com.lsj.colaman.quickproject.TestaViewModel;
 import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
@@ -48,6 +54,9 @@ public class DiffActivity extends BaseActivity {
         }
         mAdapter.diffNotifydatasetchanged();
 
+
+
+
     }
 
     private LoadMoreView getLoadMoreView() {
@@ -58,10 +67,8 @@ public class DiffActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
-                mAdapter.getDatas().add(new TestaViewModel(1001));
-                mAdapter.getDatas().add(new TestaViewModel(1001));
-                mAdapter.getDatas().add(new TestaViewModel(1001));
-                mAdapter.diffNotifydatasetchanged();
+                goToAcitivty(TestActivity.class);
+                mAdapter.notifyDataSetChanged();
                 mAdapter.canLoadMore(true);
                 break;
             case R.id.btn_2:
@@ -77,4 +84,6 @@ public class DiffActivity extends BaseActivity {
                 break;
         }
     }
+
+
 }

@@ -104,7 +104,7 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
     private Consumer<BaseViewHolder> getClickConsumer() {
         if (mItemClickConsumer == null) {
             mItemClickConsumer = baseViewHolder -> {
-                if (baseViewHolder == null) {
+                if (baseViewHolder == null || baseViewHolder.getAdapterPosition() >= getDatas().size()) {
                     return;
                 }
                 // 触发对应viewmodel的onItemClick方法
