@@ -4,12 +4,13 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.util.Consumer;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
 import com.lsj.colaman.quickproject.base.RecyclerViewModel;
 import com.lsj.colaman.quickproject.common.imp.OnItemClickListener;
@@ -18,6 +19,8 @@ import com.lsj.colaman.quickproject.common.param.BaseViewHolderBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -63,7 +66,7 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof BaseViewHolder) {
             // 在这里绑定view以及生命周期
-            RecyclerViewModel recyclerViewModel = mDatas.get(position);
+            RecyclerViewModel recyclerViewModel = getDatas().get(position);
             recyclerViewModel.bindView((BaseViewHolder) viewHolder);
             recyclerViewModel.bindLife(mLifeCycle);
         }
@@ -71,12 +74,12 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return mDatas.get(position).getLayoutRes();
+        return getDatas().get(position).getLayoutRes();
     }
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return getDatas().size();
     }
 
     /**
@@ -126,11 +129,11 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
     }
 
     public void add(RecyclerViewModel viewModel) {
-        mDatas.add(viewModel);
+        getDatas().add(viewModel);
     }
 
     public void remove(RecyclerViewModel viewModel) {
-        mDatas.remove(viewModel);
+        getDatas().remove(viewModel);
     }
 
     public Lifecycle getLifeCycle() {
@@ -190,6 +193,5 @@ public class BaseAdapter<T extends BaseAdapter> extends RecyclerView.Adapter {
         mClickListeners.put(mClickListeners.size(), listener);
         return getThis();
     }
-
 
 }

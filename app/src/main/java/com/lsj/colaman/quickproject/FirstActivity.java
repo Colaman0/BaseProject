@@ -1,11 +1,11 @@
 package com.lsj.colaman.quickproject;
 
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.lsj.colaman.quickproject.base.BaseActivity;
+import android.util.Log;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.lsj.colaman.quickproject.base.BaseActivity;
+import com.lsj.colaman.quickproject.common.rx.RxConsumer;
+import com.lsj.colaman.quickproject.sample.Lives;
 
 /**
  * <pre>
@@ -23,12 +23,29 @@ public class FirstActivity extends BaseActivity {
     @Override
     protected void initView() {
         ScreenUtils.setFullScreen(this);
-        TimerTask timerTask = new TimerTask() {
+        Lives.getLiveData().observe(this, new RxConsumer<Long>() {
             @Override
-            public void run() {
-                goToAcitivty(BottomTabActivity.class);
+            public void onComplete() {
+                super.onComplete();
+                Log.d("abc", "FirstActivity = " + "onComplete");
             }
-        };
-        new Timer().schedule(timerTask, 2*1000 );
+
+            @Override
+            public void onUnsucrible() {
+                super.onUnsucrible();
+                Log.d("abc", "FirstActivity = " + "onUnsucrible");
+
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+                Log.d("abc", "FirstActivity = " + String.valueOf(aLong));
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Log.d("abc", "FirstActivity  error = " + throwable.getMessage());
+            }
+        });
     }
 }

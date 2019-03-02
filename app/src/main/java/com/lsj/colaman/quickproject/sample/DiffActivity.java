@@ -1,11 +1,7 @@
 package com.lsj.colaman.quickproject.sample;
 
-import android.arch.lifecycle.Observer;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.os.UserHandle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
+import android.annotation.SuppressLint;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +13,6 @@ import com.lsj.colaman.quickproject.TestaViewModel;
 import com.lsj.colaman.quickproject.adapter.FeaturesAdapter;
 import com.lsj.colaman.quickproject.base.BaseActivity;
 import com.lsj.colaman.quickproject.common.view.LoadMoreView;
-import com.lsj.colaman.quickproject.layoutmanager.GridLayoutManagerWrapper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,23 +34,17 @@ public class DiffActivity extends BaseActivity {
         return R.layout.activity_simple_item;
     }
 
+    @SuppressLint("AutoDispose")
     @Override
     protected void initView() {
         recyclerview = findViewById(R.id.recyclerview);
+        recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new FeaturesAdapter(this)
-                .bindRecyclerView(recyclerview)
-                .setLoadMoreView(getLoadMoreView())
                 .addItemClickListener((position, itemView) -> Log.d("cola", "position = " + position));
-        recyclerview.setLayoutManager(new GridLayoutManagerWrapper(this, 2, GridLayoutManager.VERTICAL, false)
-                .fixLoadmore(mAdapter));
         recyclerview.setAdapter(mAdapter);
-        for (int i = 0; i < 10; i++) {
-            mAdapter.add(new TestaViewModel(i));
-        }
-        mAdapter.diffNotifydatasetchanged();
-
-
-
+        mAdapter.add(new TestaViewModel(123));
+        mAdapter.add(new TestaViewModel(123));
+//        mAdapter.diffNotifydatasetchanged();
 
     }
 
@@ -72,11 +61,9 @@ public class DiffActivity extends BaseActivity {
                 mAdapter.canLoadMore(true);
                 break;
             case R.id.btn_2:
-                mAdapter.getDatas().remove(0);
-                mAdapter.getDatas().remove(0);
-                mAdapter.getDatas().remove(0);
-                mAdapter.diffNotifydatasetchanged();
-                mAdapter.canLoadMore(false);
+                mAdapter.add(new TestaViewModel(123));
+//                mAdapter.diffNotifydatasetchanged();
+//                mAdapter.canLoadMore(false);
                 break;
             case R.id.btn_3:
                 mAdapter.getDatas().clear();

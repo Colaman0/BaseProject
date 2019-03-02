@@ -1,14 +1,14 @@
 package com.lsj.colaman.quickproject.common.param;
 
 import android.content.Context;
-import android.support.v4.util.Consumer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
-import com.lsj.colaman.quickproject.base.ImageLoader;
 import com.lsj.colaman.quickproject.common.imp.IImageLoad;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Create by kyle on 2019/1/6

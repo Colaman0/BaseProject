@@ -1,14 +1,10 @@
 package com.lsj.colaman.quickproject.sample;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 
-import com.blankj.utilcode.util.ConvertUtils;
-import com.flyco.tablayout.SlidingTabLayout;
 import com.lsj.colaman.quickproject.R;
 import com.lsj.colaman.quickproject.base.BaseActivity;
-import com.lsj.colaman.quickproject.common.view.CommonViewPagerAdapter;
 import com.lsj.colaman.quickproject.common.view.TabViewPager;
 
 import java.util.Arrays;
@@ -27,11 +23,13 @@ public class TabActivity extends BaseActivity {
         return R.layout.activity_tab;
     }
 
+    @SuppressLint("AutoDispose")
     @Override
     protected void initView() {
         mTabViewPager.setDatas(getSupportFragmentManager(), getFragments())
                 .setTitles(getTitles())
                 .show();
+
     }
 
     private List<Fragment> getFragments() {

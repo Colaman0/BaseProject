@@ -35,6 +35,9 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
 
     public FeaturesAdapter(Context context) {
         super(context);
+        if (getDatas().size() > 0) {
+            oldDatas.addAll(getDatas());
+        }
     }
 
     @Override
@@ -104,7 +107,7 @@ public class FeaturesAdapter extends ListAdapter<FeaturesAdapter> {
                 .subscribeOn(Schedulers.computation())
                 .map(s -> DiffUtil.calculateDiff(getDiffCallback(), false))
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(diffResult -> diffResult.dispatchUpdatesTo(FeaturesAdapter.this))
+                .doOnNext(diffResult -> getRecyclerView().post(() -> diffResult.dispatchUpdatesTo(FeaturesAdapter.this)))
                 .doOnComplete(() -> {
                     oldDatas.clear();
                     oldDatas.addAll(getDatas());

@@ -21,6 +21,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.logging.Handler;
 
+import butterknife.ButterKnife;
+
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -44,6 +46,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(BaseViewHolderBuilder builder) {
         super(builder.getItemView());
+        // 绑定butterknife
+        ButterKnife.bind(this, builder.getItemView());
         mBuilder = builder;
         mContext = builder.getContext();
         mConvertView = builder.getItemView();
@@ -68,7 +72,11 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         if (getConvertView() != null) {
             getConvertView().setOnClickListener(v -> {
                 if (mBuilder != null && mBuilder.getItemClickConsumer() != null) {
-                    mBuilder.getItemClickConsumer().accept(BaseViewHolder.this);
+                    try {
+                        mBuilder.getItemClickConsumer().accept(BaseViewHolder.this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -179,6 +187,21 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         View view = getView(id);
         if (view != null) {
             view.setVisibility(visibility);
+        }
+        return this;
+    }
+
+    /**
+     * 设置view是否可见
+     *
+     * @param id
+     * @param isVisible
+     * @return
+     */
+    public BaseViewHolder setVisibility(@IdRes int id, boolean isVisible) {
+        View view = getView(id);
+        if (view != null) {
+            view.setVisibility(isVisible ? VISIBLE : GONE);
         }
         return this;
     }

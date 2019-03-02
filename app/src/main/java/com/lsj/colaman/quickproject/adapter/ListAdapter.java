@@ -16,8 +16,20 @@ public class ListAdapter<T extends BaseAdapter> extends BaseAdapter<T> {
         super(context);
     }
 
+    public int size() {
+        return getDatas().size();
+    }
+
+    public RecyclerViewModel get(int index) {
+        return getDatas().get(index);
+    }
+
     public void add(RecyclerViewModel viewModel) {
-        getDatas().add(viewModel);
+        if (canHandleData()) {
+            getDatas().add(viewModel);
+        } else {
+            getRecyclerView().post(() -> getDatas().add(viewModel));
+        }
     }
 
     public void add(int index, RecyclerViewModel viewModel) {
@@ -33,15 +45,31 @@ public class ListAdapter<T extends BaseAdapter> extends BaseAdapter<T> {
     }
 
     public void remove(RecyclerViewModel viewModel) {
-        getDatas().remove(viewModel);
+        if (canHandleData()) {
+            getDatas().remove(viewModel);
+        } else {
+            getRecyclerView().post(() -> getDatas().remove(viewModel));
+        }
     }
 
     public void remove(int index) {
-        getDatas().remove(index);
+        if (canHandleData()) {
+            getDatas().remove(index);
+        } else {
+            getRecyclerView().post(() -> getDatas().remove(index));
+        }
     }
 
     public void clear() {
-        getDatas().clear();
+        if (canHandleData()) {
+            getDatas().clear();
+        } else {
+            getRecyclerView().post(() -> getDatas().clear());
+        }
+    }
+
+    private boolean canHandleData() {
+        return !getRecyclerView().isComputingLayout();
     }
 
 }
