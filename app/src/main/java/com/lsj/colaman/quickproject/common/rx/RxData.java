@@ -11,7 +11,7 @@ public class RxData<T> {
 
 
     public enum STATUS {
-        SUCCESS, FAIL, COMPLETE, UNSUSCRIBE
+        SUCCESS, FAIL, COMPLETE, UNSUSCRIBE,SUSCRIBERIB
     }
 
     private STATUS mSTATUS;

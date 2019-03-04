@@ -13,12 +13,14 @@ import com.lsj.colaman.quickproject.common.imp.IRxConsumer;
  * </pre>
  */
 public abstract class RxConsumer<T> implements Observer<RxData<T>>, IRxConsumer<T> {
+    private RxData.STATUS mCurrentStatus;
 
     @Override
     public void onChanged(@Nullable RxData<T> tRxData) {
         if (tRxData == null) {
             return;
         }
+        mCurrentStatus = tRxData.getStatus();
         switch (tRxData.getStatus()) {
             case SUCCESS:
                 onNext(tRxData.getData());
@@ -31,6 +33,9 @@ public abstract class RxConsumer<T> implements Observer<RxData<T>>, IRxConsumer<
                 break;
             case UNSUSCRIBE:
                 onUnsucrible();
+                break;
+            case SUSCRIBERIB:
+                onSucrible();
                 break;
             default:
                 break;
@@ -46,4 +51,22 @@ public abstract class RxConsumer<T> implements Observer<RxData<T>>, IRxConsumer<
     public void onUnsucrible() {
 
     }
+
+    @Override
+    public void onSucrible() {
+
+    }
+
+    public RxData.STATUS getCurrentStatus() {
+        return mCurrentStatus;
+    }
+
+    public boolean isSuccess() {
+        return mCurrentStatus.equals(RxData.STATUS.SUCCESS);
+    }
+
+    public boolean isFail() {
+        return mCurrentStatus.equals(RxData.STATUS.FAIL);
+    }
+
 }

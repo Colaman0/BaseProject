@@ -21,4 +21,6 @@ public interface IRxConsumer<T> {
     void onComplete();
 
     void onUnsucrible();
+
+    void onSucrible();
 }

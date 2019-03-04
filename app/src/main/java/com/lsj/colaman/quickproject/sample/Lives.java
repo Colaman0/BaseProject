@@ -27,6 +27,7 @@ public class Lives {
 
     public static void start() {
         Observable.interval(1, TimeUnit.SECONDS)
+                .take(5)
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<Long, Long>() {
                     @Override

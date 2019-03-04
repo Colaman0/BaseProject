@@ -34,6 +34,11 @@ public class RxLivedata<T> extends MutableLiveData<RxData<T>> implements IRxData
     }
 
     @Override
+    public void onSucrible() {
+        postData(new RxData<>(RxData.STATUS.SUSCRIBERIB));
+    }
+
+    @Override
     public void postData(RxData<T> data) {
         if (data != null) {
             setValue(data);

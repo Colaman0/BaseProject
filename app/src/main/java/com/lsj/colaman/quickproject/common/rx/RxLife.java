@@ -4,7 +4,9 @@ package com.lsj.colaman.quickproject.common.rx;
 import com.lsj.colaman.quickproject.common.imp.IRxData;
 
 import io.reactivex.ObservableTransformer;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Create by kyle on 2018/12/25
@@ -25,6 +27,7 @@ public class RxLife {
      */
     public static <T> ObservableTransformer<T, T> bindLiveData(IRxData<T> rxData) {
         return upstream -> upstream
+                .doOnSubscribe(disposable -> rxData.onSucrible())
                 .doOnNext(rxData::onNext)
                 .doOnError(rxData::onError)
                 .doOnComplete(rxData::onComplete)

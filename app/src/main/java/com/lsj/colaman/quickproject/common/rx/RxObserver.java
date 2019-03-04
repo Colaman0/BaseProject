@@ -1,5 +1,10 @@
 package com.lsj.colaman.quickproject.common.rx;
 
+import android.app.Activity;
+import android.content.Context;
+
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -31,4 +36,5 @@ public class RxObserver<T> implements Observer<T> {
     public void onComplete() {
 
     }
+
 }
