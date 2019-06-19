@@ -1,12 +1,14 @@
 package com.lsj.colaman.quickproject.adapter;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.lsj.colaman.quickproject.base.BaseLoadmoreVModel;
 import com.lsj.colaman.quickproject.base.BaseViewHolder;
 import com.lsj.colaman.quickproject.base.BaseViewModel;

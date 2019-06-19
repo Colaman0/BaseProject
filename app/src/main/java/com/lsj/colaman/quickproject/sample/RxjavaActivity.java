@@ -37,13 +37,7 @@ public class RxjavaActivity extends BaseActivity {
     @SuppressLint("AutoDispose")
     @Override
     protected void initView() {
-        LivedataCreater.getInstance().getLiveData().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer integer) {
-                Log.d("cola", "发射 = " + integer);
-            }
-        });
-        LivedataCreater.getInstance().sendData3();
+
         ((TitleBar) findViewById(R.id.title)).addViewToRight(TitleBar.getIconView(getContext(), R.mipmap.ic_launcher, null));
         ((TitleBar) findViewById(R.id.title)).addViewToRight(TitleBar.getTextView(getContext(), "保存", null));
         MutableLiveData<Long>  liveData = new MutableLiveData<>();

@@ -9,12 +9,15 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
+import okhttp3.Call;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 
 /**
- * Create by kyle on 2019/2/17
+ * Create by kyle on 2019/2/f
  * Function :
  */
-public class LiveDataCreater {
+public class LivedataCreater {
     public static MutableLiveData<String> livedata = new MutableLiveData();
 
     public static MutableLiveData<String> getLiveData() {
